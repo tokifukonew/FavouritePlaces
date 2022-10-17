@@ -1,0 +1,24 @@
+﻿<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+             x:Class="FavouritePlaces.Views.AddPlacePage">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <xct:ByteArrayToImageSourceConverter x:Key="ByteArrayToImageSourceConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ContentPage.Content>
+        <StackLayout Padding="20, 10">
+            <Label Text="Добавить новое место" FontSize="Title"/>
+            <Label Text="Название" FontSize="Medium"/>
+            <Entry Placeholder="Введите название места" Text="{Binding Title}" FontSize="Medium"/>
+            <Label Text="Описание" FontSize="Medium"/>
+            <Entry Placeholder="Введите описание места" Text="{Binding Description}" FontSize="Medium"/>
+            <Image Source="{Binding Image, Converter={StaticResource ByteArrayToImageSourceConverter}}" WidthRequest="120" HeightRequest="60"/>
+            <Button x:Name="SelectButton" Text="Выбрать фото" Command="{Binding SelectImageCommand}"/>
+            <Button x:Name="BackButton" Text="Назад" Command="{Binding BackCommand}"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

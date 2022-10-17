@@ -1,0 +1,8 @@
+/.vs
+
+**/bin
+**/obj
+
+.vs/FavouritePlaces/v17/.suo
+*.v2
+.vs/FavouritePlaces/v17/.suo

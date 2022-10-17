@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:FavouritePlaces.CustomRenderer;assembly=FavouritePlaces"
+             x:Class="FavouritePlaces.Views.MapPage">
+    <ContentPage.Content>
+        <StackLayout Padding="30, 30">
+            <StackLayout HeightRequest="300">
+                <local:CustomMap x:Name="customMap"
+                     MapType="Street" ItemsSource="{Binding Places}" MapClicked="OnMapClicked">
+                    <local:CustomMap.ItemTemplate>
+                        <DataTemplate>
+                            <local:CustomPin Position="{Binding Position}"
+                                         Address="{Binding Address}"
+                                         Label="{Binding Label}"/>
+                        </DataTemplate>
+                    </local:CustomMap.ItemTemplate>
+                </local:CustomMap>
+            </StackLayout>
+            <Button x:Name="ADD" Text="ADD" Command="{Binding ADDCommand}"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
