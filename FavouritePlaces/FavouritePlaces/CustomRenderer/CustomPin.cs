@@ -1,4 +1,6 @@
-﻿using Xamarin.Forms.Maps;
+﻿using FavouritePlaces.Models;
+using System;
+using Xamarin.Forms.Maps;
 
 namespace FavouritePlaces.CustomRenderer
 {
@@ -6,9 +8,30 @@ namespace FavouritePlaces.CustomRenderer
     {
         public string Name { get; set; }
         public string Url { get; set; }
-        public string IconType
+        public string IconType { get; set; }
+
+        public CustomPin()
         {
-            get; set;
+
+        }
+        public CustomPin(PlaceSQL place)
+        {
+            Label = place.Title;
+            Name = place.Title;
+            IconType = place.PinIcon;
+            Position = new Position(place.Latitude, place.Longitude);
+            Address = place.Address;
+            Url = "http://xamarin.com/about/";
+        }
+
+        public CustomPin(Place place)
+        {
+            Label = place.Title;
+            Name = place.Title;
+            IconType = place.PinIcon;
+            Position = place.Position;
+            Address = place.Address;
+            Url = "http://xamarin.com/about/";
         }
     }
 }

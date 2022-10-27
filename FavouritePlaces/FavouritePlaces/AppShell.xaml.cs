@@ -13,7 +13,7 @@ namespace FavouritePlaces
             InitializeComponent();
             Routing.RegisterRoute(nameof(MapPage), typeof(MapPage));
             Routing.RegisterRoute(nameof(ListOfPlacesPage), typeof(ListOfPlacesPage));
+            Routing.RegisterRoute(nameof(SettingPage), typeof(SettingPage));
         }
-
     }
 }

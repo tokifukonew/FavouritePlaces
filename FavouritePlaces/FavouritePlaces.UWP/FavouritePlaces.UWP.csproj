@@ -124,6 +124,7 @@
     <Content Include="Assets\Pins\Icon_1_home.png" />
     <Content Include="Assets\Pins\Icon_2_gas_station.png" />
     <Content Include="Assets\Pins\Icon_3_restaurant.png" />
+    <Content Include="monkey.png" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LargeTile.scale-100.png" />
     <Content Include="Assets\LargeTile.scale-200.png" />

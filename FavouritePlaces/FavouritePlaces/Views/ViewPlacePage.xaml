@@ -1,9 +1,10 @@
-﻿<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
              xmlns:maps="clr-namespace:Xamarin.Forms.Maps;assembly=Xamarin.Forms.Maps"
-             x:Class="FavouritePlaces.Views.AddPlacePage">
-
+             x:Class="FavouritePlaces.Views.ViewPlacePage">
+    
     <ContentPage.Resources>
         <ResourceDictionary>
             <xct:ByteArrayToImageSourceConverter x:Key="ByteArrayToImageSourceConverter" />
@@ -13,8 +14,10 @@
     <ContentPage.Content>
         <StackLayout Padding="20, 10">
             <Label Text="Добавить новое место" FontSize="Title"/>
-            <Grid ColumnSpacing="20">
+            <Grid>
                 <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
@@ -31,16 +34,12 @@
                 <Entry Grid.Row="1" Grid.Column="0" Placeholder="Введите название" Text="{Binding Title}" FontSize="Medium"/>
                 <Label Grid.Row="2" Grid.Column="0" Text="Адрес" FontSize="Small"/>
                 <Entry Grid.Row="3" Grid.Column="0" Placeholder="Введите адрес" Text="{Binding Address}" FontSize="Medium"/>
-                <Image Grid.Column="1" Grid.Row="1" Grid.RowSpan="3" HorizontalOptions="CenterAndExpand" VerticalOptions="End"
+                <Image Grid.Row="0" Grid.Column="1" Grid.RowSpan="3" HorizontalOptions="CenterAndExpand" VerticalOptions="End"
                        Source="{Binding Image, Converter={StaticResource ByteArrayToImageSourceConverter}}"/>
-                <Button Grid.Row="4" Grid.Column="1" x:Name="ViewImageButton" 
-                        Text="Просмотр" Command="{Binding ViewImageCommand}" HorizontalOptions="FillAndExpand"/>
-                <Label Grid.Row="4" Grid.Column="0" Text="Описание" FontSize="Small"/>
-                <Entry Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" 
-                       Placeholder="Введите описание" Text="{Binding Description}" FontSize="Medium"/>
-                <maps:Map Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2"  HeightRequest="250"
-                    x:Name="map"
-                      MapClicked="OnMapClickedAdd"
+                <Button Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" x:Name="ViewImageButton" Text="Просмотр" Command="{Binding ViewImageCommand}" HorizontalOptions="FillAndExpand"/>
+                <Label Grid.Row="4" Grid.ColumnSpan="2" Text="Описание" FontSize="Small"/>
+                <Entry Grid.Row="5" Grid.ColumnSpan="2" Placeholder="Введите описание" Text="{Binding Description}" FontSize="Medium"/>
+                <maps:Map x:Name="map" Grid.Row="7" Grid.ColumnSpan="2" HeightRequest="250"
                         ItemsSource="{Binding Locations}">
                     <maps:Map.ItemTemplate>
                         <DataTemplate>
@@ -50,11 +49,8 @@
                         </DataTemplate>
                     </maps:Map.ItemTemplate>
                 </maps:Map>
-                <StackLayout Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2"
-                    Orientation="Horizontal">
-                    <Button x:Name="SelectIconButton" Text="Выбрать иконку" Command="{Binding SelectIconCommand}" HorizontalOptions="FillAndExpand"/>
-                    <Button x:Name="SelectButton" Text="Выбрать фото" Command="{Binding SelectImageCommand}" HorizontalOptions="FillAndExpand"/>
-                    <Button x:Name="SaveButton" Text="Сохранить" Command="{Binding SaveCommand}" HorizontalOptions="FillAndExpand"/>
+                <StackLayout Grid.Row="8" Grid.ColumnSpan="2" Orientation="Horizontal">
+                    <Button x:Name="EditPlaceButton" Text="Редактировать" Command="{Binding EditPlaceCommand}" HorizontalOptions="FillAndExpand"/>
                 </StackLayout>
             </Grid>
         </StackLayout>

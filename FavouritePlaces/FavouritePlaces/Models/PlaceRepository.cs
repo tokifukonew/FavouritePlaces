@@ -1,25 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
+﻿using System.Collections.Generic;
 using SQLite;
-using Xamarin.Forms;
 
 namespace FavouritePlaces.Models
 {
     public class PlaceRepository
     {
         SQLiteConnection database;
+        private PlaceSQL _placeSQL;
         public PlaceRepository(string databasePath)
         {
             database = new SQLiteConnection(databasePath);
-            database.CreateTable<Place>();
+            database.CreateTable<PlaceSQL>();
         }
-        public IEnumerable<Place> GetItems()
+        public IEnumerable<PlaceSQL> GetItems()
         {
-            return database.Table<Place>().ToList();
+            return database.Table<PlaceSQL>().ToList();
         }
         public Place GetItem(int id)
         {
+
             return database.Get<Place>(id);
         }
         public int DeleteItem(int id)
@@ -30,25 +29,14 @@ namespace FavouritePlaces.Models
         {
             if(item.Id != 0)
             {
-                database.Update(item);
-                return item.Id;
+                _placeSQL = new PlaceSQL(item);
+                database.Update(_placeSQL);
+                return _placeSQL.Id;
             }
             else
             {
-                return database.Insert(item);
-            }
-        }
-        public static byte[] ConvertStreamtoByte(Stream input)
-        {
-            byte[] buffer = new byte[16 * 1024];
-            using (MemoryStream ms = new MemoryStream())
-            {
-                int read;
-                while ((read = input.Read(buffer, 0, buffer.Length)) > 0)
-                {
-                    ms.Write(buffer, 0, read);
-                }
-                return ms.ToArray();
+                _placeSQL = new PlaceSQL(item);
+                return database.Insert(_placeSQL);
             }
         }
     }

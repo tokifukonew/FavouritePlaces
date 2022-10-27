@@ -7,6 +7,7 @@
     <ContentPage.Resources>
         <ResourceDictionary>
             <xct:ByteArrayToImageSourceConverter x:Key="ByteArrayToImageSourceConverter" />
+            <xct:ItemSelectedEventArgsConverter x:Key="ItemSelectedEventArgsConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
 
@@ -16,22 +17,30 @@
         <Label Text="{Binding Source={x:Reference Name =placesList}, Path=SelectedItem.Title}"
                 VerticalOptions="StartAndExpand" 
                 HorizontalOptions="CenterAndExpand" />
-        <ListView x:Name="placesList" ItemsSource="{Binding Places}"
-                      ItemSelected="PlaceList_ItemSelected"
-                      ItemTapped="PlaceList_ItemTapped">
+        <ListView x:Name="placesList" ItemsSource="{Binding Places}" SelectedItem="{Binding PlaceSelected, Mode=TwoWay}">
+            <ListView.Behaviors>
+                <xct:EventToCommandBehavior
+                    EventName="ItemSelected"
+                    Command="{Binding ListViewItemSelectedCommand}"
+                    EventArgsConverter="{StaticResource ItemSelectedEventArgsConverter}"/>
+            </ListView.Behaviors>
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
                         <StackLayout Orientation="Horizontal">
                             <Image Source="{Binding Image, Converter={StaticResource ByteArrayToImageSourceConverter}}" WidthRequest="120" HeightRequest="60"/>
-                            <Label Text="{Binding Title}" FontSize="18"/>
-                            <Label Text="{Binding Description}"/>
-                            <Label Text="{Binding Position}"/>
+                            <StackLayout Orientation="Vertical">
+                                <Label Text="{Binding Title}" FontSize="18"/>
+                                <Label Text="{Binding Description}"/>
+                            </StackLayout>
                         </StackLayout>
                     </ViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <Button Command="{Binding AddPlaceCommand}"/>
+        <StackLayout Orientation="Horizontal">
+            <Button Text="Добавить"  Command="{Binding AddPlaceCommand}" HorizontalOptions="FillAndExpand"/>
+            <Button Text="Редактировать" Command="{Binding EditPlaceCommand}" HorizontalOptions="FillAndExpand"/>
+        </StackLayout>
     </StackLayout>
 </ContentPage>

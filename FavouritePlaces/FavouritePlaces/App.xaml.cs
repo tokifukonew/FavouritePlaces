@@ -1,5 +1,4 @@
-﻿using FavouritePlaces.Services;
-using FavouritePlaces.Views;
+﻿using FavouritePlaces.Views;
 using FavouritePlaces.Models;
 using System;
 using System.IO;
@@ -23,15 +22,15 @@ namespace FavouritePlaces
                             Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), DATABASE_NAME));
                     System.Diagnostics.Debug.WriteLine(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), DATABASE_NAME));
                 }
+                System.Diagnostics.Debug.WriteLine(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), DATABASE_NAME));
                 return database;
             }
         }
         public App()
         {
             InitializeComponent();
-
-            DependencyService.Register<MockDataStore>();
-            MainPage = new AppShell();
+            MainPage = new NavigationPage(new InitPage());
+            //MainPage = new AppShell();
         }
 
         protected override void OnStart()

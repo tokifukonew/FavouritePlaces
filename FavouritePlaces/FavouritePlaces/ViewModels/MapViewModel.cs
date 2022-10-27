@@ -1,9 +1,8 @@
 ﻿using FavouritePlaces.CustomRenderer;
-using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Text;
 using System.Windows.Input;
 using Xamarin.Forms;
 using Xamarin.Forms.Maps;
@@ -46,22 +45,27 @@ namespace FavouritePlaces.ViewModels
             Url = "http://xamarin.com/about/"
         };
 
-        public ObservableCollection<CustomPin> Places { get; set; }
+        //public ObservableCollection<CustomPin> Places { get; set; }
+
+
         CustomMap customMap;
         public MapViewModel()
         {
             customMap = new CustomMap();
 
             ADDCommand = new Command(ADD);
-            Places = new ObservableCollection<CustomPin>();
+            ListOfPlacesViewModel listOfPlacesViewModel = new ListOfPlacesViewModel();
+            //Places = new ObservableCollection<CustomPin>();
+            MessagingCenter.Subscribe<Application, Models.Place>(Application.Current, "AddPlace", (sender, arg) =>
+            {
+                MessagingCenter.Send(Application.Current, "SelectItem", new CustomPin(arg));
+                //Places.Add(new CustomPin(arg));
+                App.Database.SaveItem(arg);
+            });
             //customMap.CustomPins = Places;
 
         }
-        private void Add(CustomPin pin)
-        {
-            System.Diagnostics.Debug.WriteLine("Add+ " + pin.Label);
-            MessagingCenter.Send<Application, CustomPin>(Application.Current, "SelectItem", pin);
-        }
+
 
         private void Adds(List<CustomPin> pins)
         {
@@ -70,6 +74,7 @@ namespace FavouritePlaces.ViewModels
 
         private void ADD()
         {
+            //Places.Add(pinTest2);
             List<CustomPin> sendPins = new List<CustomPin>();
             sendPins.Add(pin2);
             sendPins.Add(pinTest);

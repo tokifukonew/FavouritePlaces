@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="FavouritePlaces.Views.SelectIconPage">
+    <ContentPage.Content>
+        <StackLayout Padding="20, 10">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <ImageButton Grid.Column="0" Grid.Row="0" Source="Assets\Pins\Icon_1_home.png" Command="{Binding OnImageButton00ClickedCommand}"/>
+                <ImageButton Grid.Column="0" Grid.Row="1" Source="Assets\Pins\Icon_2_gas_station.png" Command="{Binding OnImageButton01ClickedCommand}"/>
+                <ImageButton Grid.Column="0" Grid.Row="2" Source="Assets\Pins\Icon_3_restaurant.png" Command="{Binding OnImageButton02ClickedCommand}"/>
+                <ImageButton Grid.Column="0" Grid.Row="3" Source="Assets\Pins\Icon_04_bus_station.png" Command="{Binding OnImageButton03ClickedCommand}"/>
+                <ImageButton Grid.Column="0" Grid.Row="4" Source="Assets\Pins\Icon_05_high_building.png" Command="{Binding OnImageButton04ClickedCommand}"/>
+                <ImageButton Grid.Column="1" Grid.Row="0" Source="Assets\Pins\Icon_06_swimming_pool.png" Command="{Binding OnImageButton10ClickedCommand}"/>
+                <ImageButton Grid.Column="1" Grid.Row="1" Source="Assets\Pins\Icon_07_fastfood_restaurant.png" Command="{Binding OnImageButton11ClickedCommand}"/>
+                <ImageButton Grid.Column="1" Grid.Row="2" Source="Assets\Pins\Icon_08_book_or_library.png" Command="{Binding OnImageButton12ClickedCommand}"/>
+                <ImageButton Grid.Column="1" Grid.Row="3" Source="Assets\Pins\Icon_09_shop.png" Command="{Binding OnImageButton13ClickedCommand}"/>
+                <ImageButton Grid.Column="1" Grid.Row="4" Source="Assets\Pins\Icon_10_toilet.png" Command="{Binding OnImageButton14ClickedCommand}"/>
+                <ImageButton Grid.Column="2" Grid.Row="0" Source="Assets\Pins\Icon_11_flag.png" Command="{Binding OnImageButton20ClickedCommand}"/>
+                <ImageButton Grid.Column="2" Grid.Row="1" Source="Assets\Pins\Icon_12_fountain.png" Command="{Binding OnImageButton21ClickedCommand}"/>
+                <ImageButton Grid.Column="2" Grid.Row="2" Source="Assets\Pins\Icon_13_trash.png" Command="{Binding OnImageButton22ClickedCommand}"/>
+                <ImageButton Grid.Column="2" Grid.Row="3" Source="Assets\Pins\Icon_14_park.png" Command="{Binding OnImageButton23ClickedCommand}"/>
+                <ImageButton Grid.Column="2" Grid.Row="4" Source="Assets\Pins\Icon_15_tree.png" Command="{Binding OnImageButton24ClickedCommand}"/>
+
+            </Grid>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
