@@ -1,24 +1,21 @@
-﻿using FavouritePlaces.CustomRenderer;
-using System.Collections;
+﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Windows.Input;
-using Xamarin.Forms;
-using Xamarin.Forms.Maps;
+using System.Text;
 
 namespace FavouritePlaces.ViewModels
 {
-    public class MapViewModel : INotifyPropertyChanged
+    public class SettingsViewModel
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public MapViewModel()
+
+        private Models.Settings _settings;
+        public SettingsViewModel()
         {
-            ListOfPlacesViewModel listOfPlacesViewModel = new ListOfPlacesViewModel();
+            _settings = new Models.Settings();
+
         }
-
-
 
 
         protected void OnPropertyChanged(string propName)

@@ -17,7 +17,6 @@
                     </local:CustomMap.ItemTemplate>
                 </local:CustomMap>
             </StackLayout>
-            <Button x:Name="ADD" Text="ADD" Command="{Binding ADDCommand}"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

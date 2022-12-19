@@ -40,7 +40,7 @@
         </ListView>
         <StackLayout Orientation="Horizontal">
             <Button Text="Добавить"  Command="{Binding AddPlaceCommand}" HorizontalOptions="FillAndExpand"/>
-            <Button Text="Редактировать" Command="{Binding EditPlaceCommand}" HorizontalOptions="FillAndExpand"/>
+            <Button Text="Обновить" Command="{Binding RefreshCommand}" HorizontalOptions="FillAndExpand"/>
         </StackLayout>
     </StackLayout>
 </ContentPage>

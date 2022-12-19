@@ -13,8 +13,6 @@ namespace FavouritePlaces.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class InitPage : ContentPage
     {
-
-        Label stackLabel;
         public InitPage()
         {
             InitializeComponent();

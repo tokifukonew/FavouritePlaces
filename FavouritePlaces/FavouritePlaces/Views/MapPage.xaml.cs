@@ -24,19 +24,46 @@ namespace FavouritePlaces.Views
                 customPins.Add(arg);
                 CreateMap();
             });
-            MessagingCenter.Subscribe<Application, List<CustomPin>>(Application.Current, "SelectItems", (sender, args) =>
+            MessagingCenter.Subscribe<Application, List<CustomPin>>(Application.Current, "SelectItems", async (sender, args) =>
             {
+                customPins.Clear();
+                System.Diagnostics.Debug.WriteLine("\nMap!\n");
                 foreach (var arg in args)
+                {
                     customPins.Add(arg);
+                    System.Diagnostics.Debug.WriteLine(arg.Label);
+                }
                 CreateMap();
-                //Content = customMap;
+                customMap.MoveToRegion(MapSpan.FromCenterAndRadius(new Position(55.8295498, 37.6300322), Distance.FromKilometers(50.0)));
             });
 
+
+            MessagingCenter.Subscribe<Application, String>(Application.Current, "DeletePlace", (sender, arg) =>
+            {
+                System.Diagnostics.Debug.WriteLine(arg);
+                for (int i = 0; i < customPins.Count; i++)
+                {
+                    if (customPins[i].Label == arg)
+                    {
+                        customPins.Remove(customPins[i]);
+                    }
+                }
+                customPins.Clear();
+                var PlacesFromDatabase = App.Database.GetItems();
+                foreach (var item in PlacesFromDatabase)
+                {
+                    customPins.Add(new CustomPin(item));
+                }
+                CreateMap();
+                //MessagingCenter.Send<Application, List<CustomPin>>(Application.Current, "SelectItems", PlacesForMap);
+            });
 
             customMap.MoveToRegion(MapSpan.FromCenterAndRadius(new Position(55.8295498, 37.6300322), Distance.FromKilometers(50.0)));
             BindingContext = new FavouritePlaces.ViewModels.MapViewModel()
             {
+
             };
+
         }
 
         void CreateMap()

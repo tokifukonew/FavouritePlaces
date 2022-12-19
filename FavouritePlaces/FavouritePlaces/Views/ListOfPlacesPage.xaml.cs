@@ -23,16 +23,14 @@ namespace FavouritePlaces.Views
 
         private void PlaceList_ItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
-            System.Diagnostics.Debug.WriteLine("1H");
             if (e.SelectedItem != null)
-                System.Diagnostics.Debug.WriteLine(e.SelectedItem.ToString());
+                System.Diagnostics.Debug.WriteLine("SelectedItem" + e.SelectedItem.ToString());
         }
 
         private void PlaceList_ItemTapped(object sender, ItemTappedEventArgs e)
         {
-            System.Diagnostics.Debug.WriteLine("2H");
             if (e.Item != null)
-                System.Diagnostics.Debug.WriteLine(e.Item.ToString());
+                System.Diagnostics.Debug.WriteLine("ItemTapped" + e.Item.ToString());
         }
     }
 }

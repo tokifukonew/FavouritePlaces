@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Text;
+using Xamarin.Forms;
 using Xamarin.Forms.Maps;
 
 namespace FavouritePlaces.ViewModels
@@ -14,6 +15,9 @@ namespace FavouritePlaces.ViewModels
         private Models.Place _place;
         readonly ObservableCollection<Models.Place> _locations;
         public IEnumerable Locations => _locations;
+        public Command ViewImageCommand { get; }
+        public Command EditPlaceCommand { get; }
+
         public ViewPlaceViewModel()
         {
 
@@ -24,8 +28,26 @@ namespace FavouritePlaces.ViewModels
             _locations = new ObservableCollection<Models.Place>();
             _locations.Clear();
             _locations.Add(place);
+            ViewImageCommand = new Command(ViewImage, ValidateViewImage);
+            EditPlaceCommand = new Command(Edit);
+            this.PropertyChanged +=
+                (_, __) => ViewImageCommand.ChangeCanExecute();
         }
 
+        private async void ViewImage()
+        {
+            await App.Current.MainPage.Navigation.PushAsync(new Views.ViewImagePage(Image));
+        }
+        private bool ValidateViewImage()
+        {
+            if (Image != null)
+                return true;
+            return false;
+        }
+        private async void Edit()
+        {
+            await App.Current.MainPage.Navigation.PushModalAsync(new Views.AddPlacePage(_place));
+        }
 
         public string Title
         {

@@ -15,26 +15,48 @@ namespace FavouritePlaces.ViewModels
         public event PropertyChangedEventHandler PropertyChanged;
         public Image image = new Image();
         private Models.Place _place;
+        private string _oldTitle;
+        private bool _edit;
 
         readonly ObservableCollection<Place> _locations;
         public IEnumerable Locations => _locations;
 
-        public Command SelectImageCommand { get; }
-        public Command SelectIconCommand { get; }
-        public Command SaveCommand { get; }
-        public Command ViewImageCommand { get; }
+        public Command SelectImageCommand { get; set;  }
+        public Command SelectIconCommand { get; set; }
+        public Command SaveCommand { get;  set; }
+        public Command ViewImageCommand { get; set; }
+
+        public string TitlePage { get; set; }
+
         public AddPlacePageViewModel()
         {
+            _edit = false;
             _locations = new ObservableCollection<Place>();
+            _place = new Models.Place();
+            Create();
+        }
+
+        public AddPlacePageViewModel(Models.Place place)
+        {
+            _edit = true;
+            _locations = new ObservableCollection<Models.Place>();
+            _place = place;
+            _oldTitle = place.Title;
+            _locations.Clear();
+            _locations.Add(place);
+            Create();
+        }
+
+        private void Create()
+        {
             SelectImageCommand = new Command(SelectImage);
             SelectIconCommand = new Command(SelectIcon);
             SaveCommand = new Command(Save, ValidateSave);
             ViewImageCommand = new Command(ViewImage, ValidateViewImage);
-            _place = new Models.Place();
             MessagingCenter.Subscribe<Application, Xamarin.Forms.Maps.Position>(Application.Current, "SelectLocation", (sender, arg) =>
             {
                 _locations.Clear();
-                if(!String.IsNullOrWhiteSpace(Title)
+                if (!String.IsNullOrWhiteSpace(Title)
                 && !String.IsNullOrWhiteSpace(Address)
                 && !String.IsNullOrWhiteSpace(Description))
                 {
@@ -55,6 +77,7 @@ namespace FavouritePlaces.ViewModels
                 (_, __) => ViewImageCommand.ChangeCanExecute();
         }
 
+
         private async void Save()
         {
             if(String.IsNullOrEmpty(PinIcon))
@@ -70,12 +93,31 @@ namespace FavouritePlaces.ViewModels
                     _place.PinIcon = "Building";
                     MessagingCenter.Send<Application, Models.Place>(Application.Current, "AddPlace", _place);
                     await App.Current.MainPage.Navigation.PopModalAsync();
+                    return;
                 }
             }
             else
             {
-                MessagingCenter.Send<Application, Models.Place>(Application.Current, "AddPlace", _place);
-                await App.Current.MainPage.Navigation.PopModalAsync();
+                if (_edit)
+                {
+                    MessagingCenter.Send<Application, Models.Place>(Application.Current, "AddPlace", _place);
+                    MessagingCenter.Send<Application, String>(Application.Current, "DeletePlace", _oldTitle);
+                    await App.Current.MainPage.Navigation.PopModalAsync();
+                    await App.Current.MainPage.Navigation.PopModalAsync();
+                    return;
+                    //await App.Current.MainPage.Navigation.PopModalAsync();
+                    //for (var i = 1; i < 2; i++)
+                    //{
+                    //    mainPage.Navigation.RemovePage(mainPage.Navigation.NavigationStack[mainPage.Navigation.NavigationStack.Count - 2]);
+                    //}
+                    //App.Current.MainPage.Navigation.RemovePage(App.Current.MainPage.Navigation.NavigationStack[App.Current.MainPage.Navigation.NavigationStack.Count - 1]);
+                }
+                else
+                {
+                    MessagingCenter.Send<Application, Models.Place>(Application.Current, "AddPlace", _place);
+                    await App.Current.MainPage.Navigation.PopModalAsync();
+                    return;
+                }
             }
         }
         private bool ValidateSave()

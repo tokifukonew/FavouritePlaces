@@ -18,10 +18,22 @@ namespace FavouritePlaces.Views
         public AddPlacePage()
         {
             InitializeComponent();
-            BindingContext = new ViewModels.AddPlacePageViewModel();
+            BindingContext = new ViewModels.AddPlacePageViewModel()
+            {
+                TitlePage = "Добавить новое место"
+            };
             map.MoveToRegion(MapSpan.FromCenterAndRadius(new Position(55.7555821, 37.6182021), Distance.FromKilometers(50)));
         }
-        
+        public AddPlacePage(Models.Place place)
+        {
+            InitializeComponent();
+            BindingContext = new ViewModels.AddPlacePageViewModel(place)
+            {
+                TitlePage = "Редактирование места"
+            };
+            map.MoveToRegion(MapSpan.FromCenterAndRadius(place.Position, Distance.FromKilometers(0.2)));
+        }
+
         void OnMapClickedAdd(object sender, MapClickedEventArgs e)
         {
             MessagingCenter.Send<Application, Position>(Application.Current, "SelectLocation", e.Position);

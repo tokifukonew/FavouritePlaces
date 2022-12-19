@@ -27,7 +27,6 @@ namespace CustomRenderer.UWP
         bool xamarinOverlayShown = false;
         protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            System.Diagnostics.Debug.WriteLine(sender.ToString() + "  " + e.PropertyName);
             base.OnElementPropertyChanged(sender, e);
         }
         protected override void OnElementChanged(ElementChangedEventArgs<Map> e)
@@ -125,7 +124,7 @@ namespace CustomRenderer.UWP
                 if (!xamarinOverlayShown)
                 {
                     var customPin = GetCustomPin(mapIcon.Location.Position);
-                    System.Diagnostics.Debug.WriteLine($"{customPin.Position.Longitude} - {customPin.Position.Latitude} - {customPin.Name}");
+                    System.Diagnostics.Debug.WriteLine($"{customPin.Position.Longitude} - {customPin.Position.Latitude}");
                     if (customPin == null)
                     {
                         throw new Exception("Custom pin not found");

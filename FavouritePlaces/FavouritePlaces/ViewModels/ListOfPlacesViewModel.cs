@@ -16,6 +16,8 @@ namespace FavouritePlaces.ViewModels
         public INavigation Navigation { get; internal set; }
 
         public ICommand AddPlaceCommand { get; }
+        public ICommand RemovePlaceCommand { get; }
+        public ICommand RefreshCommand { get; }
         public ICommand ListViewItemSelectedCommand { get; }
 
 
@@ -24,6 +26,7 @@ namespace FavouritePlaces.ViewModels
         public ListOfPlacesViewModel()
         {
             AddPlaceCommand = new Command(AddPlace);
+            RefreshCommand = new Command(Refresh);
             ListViewItemSelectedCommand = new Command(ListViewItemSelected);
             Places = new ObservableCollection<Models.Place>();
 
@@ -36,10 +39,24 @@ namespace FavouritePlaces.ViewModels
             }
 
             MessagingCenter.Send <Application, List<CustomPin> > (Application.Current, "SelectItems", PlacesForMap);
+
             MessagingCenter.Subscribe<Application, Models.Place>(Application.Current, "AddPlace", (sender, arg) =>
             {
                 Places.Add(arg);
+                App.Database.SaveItem(arg);
                 //App.Database.SaveItem(arg);
+            });
+
+            MessagingCenter.Subscribe<Application, String>(Application.Current, "DeletePlace", (sender, arg) =>
+            {
+                Places.Clear();
+                PlacesForMap.Clear();
+                PlacesFromDatabase = App.Database.GetItems();
+                foreach (var place in PlacesFromDatabase)
+                {
+                    Places.Add(new Place(place));
+                    PlacesForMap.Add(new CustomPin(place));
+                }
             });
         }
 
@@ -55,10 +72,23 @@ namespace FavouritePlaces.ViewModels
             }
         }
 
+        private void ReadFromDatabase()
+        {
+            Places.Clear();
+            var PlacesFromDatabase = App.Database.GetItems();
+            foreach (var place in PlacesFromDatabase)
+            {
+                Places.Add(new Place(place));
+            }
+        }
 
         public async void AddPlace()
         {
             await Navigation.PushModalAsync(new AddPlacePage());
+        }
+        public void Refresh()
+        {
+            ReadFromDatabase();
         }
         private async void ListViewItemSelected()
         {

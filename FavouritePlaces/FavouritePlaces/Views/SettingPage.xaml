@@ -4,9 +4,23 @@
              x:Class="FavouritePlaces.Views.SettingPage">
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
+            <Label Text="Настройки"
                 HorizontalOptions="CenterAndExpand" />
+            <Label Text="Информация о файле" />
+            <Label Text="{Binding NameDBFile}" />
+            <Label Text="{Binding SizeFile, StringFormat='Размер файла: {0:F2}'}"/>
+            <Label Text="{Binding LastEditFile, StringFormat='Дата последнего изменения: {0:F2}'}"/>
+            <Label Text="{Binding CreateFile, StringFormat='Дата создания файла: {0:F2}'}"/>
+
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                <Button 
+                    x:Name="DeleteButton" Text="Удалить" Command="{Binding DeleteFileCommand}" 
+                    HorizontalOptions="FillAndExpand"/>
+                <Button 
+                    x:Name="ShareFile" Text="Поделиться" Command="{Binding ShareCommand}"
+                    HorizontalOptions="FillAndExpand"/>
+            </StackLayout>
+
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

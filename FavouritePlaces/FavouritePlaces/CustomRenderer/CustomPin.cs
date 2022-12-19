@@ -6,7 +6,6 @@ namespace FavouritePlaces.CustomRenderer
 {
     public class CustomPin : Pin
     {
-        public string Name { get; set; }
         public string Url { get; set; }
         public string IconType { get; set; }
 
@@ -17,7 +16,6 @@ namespace FavouritePlaces.CustomRenderer
         public CustomPin(PlaceSQL place)
         {
             Label = place.Title;
-            Name = place.Title;
             IconType = place.PinIcon;
             Position = new Position(place.Latitude, place.Longitude);
             Address = place.Address;
@@ -27,7 +25,6 @@ namespace FavouritePlaces.CustomRenderer
         public CustomPin(Place place)
         {
             Label = place.Title;
-            Name = place.Title;
             IconType = place.PinIcon;
             Position = place.Position;
             Address = place.Address;

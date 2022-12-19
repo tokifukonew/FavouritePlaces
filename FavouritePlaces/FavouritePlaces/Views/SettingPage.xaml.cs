@@ -15,6 +15,10 @@ namespace FavouritePlaces.Views
         public SettingPage()
         {
             InitializeComponent();
+            BindingContext = new ViewModels.SettingsViewModel()
+            {
+
+            };
         }
     }
 }
